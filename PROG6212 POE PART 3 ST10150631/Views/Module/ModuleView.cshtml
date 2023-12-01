@@ -1,0 +1,103 @@
+﻿@model IEnumerable<ModuleModel>
+
+<style>
+    .btn.btn-info {
+        width: 100%; /* Make the button fill the container width */
+        height: 100%;
+        border: none; /* Remove button border */
+        padding: 10px; /* Adjust padding as needed */
+        margin-top: 5px; /* Provide margin from the top */
+        margin-bottom:5px;
+    }
+    /* Center align the content */
+    .centered-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: auto; /* Set height for vertical centering */
+        background-image: url(/lib/imgs/ModuleBackground1.jpeg); /* Replace 'your-background-image-url.jpg' with your image URL */
+        background-size:cover;
+        background-position: center;
+    }
+</style>
+<head>
+    <title>My Modules: </title>
+</head>
+<html>
+<body>
+    <h1> My Modules: </h1>
+    <div class="centered-content">
+        <div class="container">
+                <!-- Button to Add Semester-->
+                <a type="button" class="btn btn-info" style="background-size:cover" asp-controller="Module" asp-action="AddModuleView">+ Add Module</a>
+
+            <div class="row">
+                
+
+                @if (Model == null)
+                {
+                    <div class="col-md-4">
+                        <div class="card text-white bg-primary border-secondary mb-3" style="max-width: 20rem;">
+                            <div class="card-header">
+                                <h3>Module Name</h3>
+                                <img class="card-img-top" src="~/lib/imgs/StudyBackgound2.jpeg" />
+                                <div class="card-body">
+                                    <p class="card-text">Module Code:</p>
+                                    <p class="card-text">Module Semester:</p>
+                                    <p class="card-text">Credits:</p>
+                                    <p class="card-text">Weekly Class Hours:</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-success">Edit</button>
+                                            <button type="button" class="btn btn-warning">View</button>
+                                            <button type="button" class="btn btn-danger">Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                    //Will load in all modules from a list as items
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-4">
+                            <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                                <div class="card-header">
+                                    <h3>@item.ModuleName</h3>
+                                    <img class="card-img-top" src="~/lib/imgs/StudyBackgound2.jpeg" />
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">Module Code: @item.ModuleCode</p>
+                                    <p class="card-text">Module Semester: @item.SemesterName</p>
+                                    <p class="card-text">Credits: @item.Credits</p>
+                                    <p class="card-text">Weekly Class Hours: @item.WeeklyClassHrs</p>
+                                    <p class="card-text">Weekly Self Study Hours: @item.WeeklySelfHrs</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <!-- Deletes the module when pressed -->
+                                        <div class="btn-group">
+                                            <form action="BtnDeleteModule" method="post">
+                                                <input type="hidden" name="ModName" value="@item.ModuleName" />
+                                                <input type="submit" value="Delete" class="btn btn-danger float-right mt-3" />
+                                            </form>
+                                            @if (TempData["ErrorMessage"] != null)
+                                            {
+                                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                    @TempData["ErrorMessage"]
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

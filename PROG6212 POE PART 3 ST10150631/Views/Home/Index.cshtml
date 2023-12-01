@@ -1,0 +1,178 @@
+﻿@model PROG6212_POE_PART_3_ST10150631.Models.NoteModel;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+    .flex-container {
+        display: flex;
+        justify-content: space-between; /* Distributes items evenly */
+    }
+
+    .flex-item {
+        /* Styling for each column */
+        flex: 1; /* Each column takes up equal space */
+        padding: 20px;
+        margin: 0 5px; /* Margin between columns */
+    }
+
+    .form-group {
+        padding: 10px;
+    }
+
+    .btn-primary {
+        padding: 10px;
+    }
+
+    .smaller-column {
+        flex: 0.5; /* Adjust the value to make this column smaller */
+    }
+        /* Center align the content */
+    .centered-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 40vh; /* Set height for vertical centering */
+        background-image: url(/lib/imgs/StudyBackground.jpg); /* Replace 'your-background-image-url.jpg' with your image URL */
+        background-size: cover;
+        background-position: center;
+    }
+</style>
+<html>
+
+<body>
+    <h1>WELCOME TO STUDYSYNC : </h1>
+    <div>
+        <img src="~/lib/imgs/Banner1.jpg"  style="width: 100%">
+    </div>
+    <div class="album py-5 bg-dark">
+        <div class="container">
+            <div class="flex-container">
+
+                    <!-- for the module items -->
+                    <div class="flex-item smaller-column">
+
+                            <div class="card text-white bg-warning mb-3 border-prim" style="max-width: 25rem;">
+                                <div class="card-header">
+                                     <h3>Add notification</h3>
+                                 </div>
+                        @using (Html.BeginForm("AddNoteClicked", "Home", FormMethod.Post))
+                        {
+                            <div class="form-group">
+                                <p>Notification Name: </p>
+                                <input type="text" id="NoteName" name="NoteName" />
+                            </div>
+                            <div class="form-group">
+                                <p>Notification Content: </p>
+                                <input type="text" id="NoteContent" name="NoteContent" />
+                            </div>
+                            <p>Notification Time</p>
+                            <div class="form-group row">
+                                <div class="col-auto">
+                                    <select class="form-select" id="hour" name="Hour" fdprocessedid="us1jy">
+                                        @for (int i = 0; i <= 23; i++)
+                                        {
+                                            @if(i<10)
+                                                {
+                                                <option value="@i">0 @i</option>
+                                                }
+                                            else
+                                            {
+                                                <option value="@i">@i</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-auto align-self-center">
+                                    <p>:</p>
+                                </div>
+                                <div class="col-auto">
+                                    <select class="form-select" id="minute" name="Minute" fdprocessedid="us1jy">
+                                        @for (int i = 0; i <= 59; i++)
+                                        {
+                                            @if (i < 10)
+                                            {
+                                                <option value="@i">0 @i</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@i">@i</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <p> Note Date </p>
+                            <div class="form-group">
+                                @Html.Label("Day")
+                                <select class="form-select" id="day" name="Day" fdprocessedid="us1jy">
+                                    @for (int i = 1; i <= 31; i++)
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                </select>
+                                @Html.Label("Month")
+                                <select class="form-select" id="month" name="Month" fdprocessedid="us1jy">
+                                    @for (int i = 1; i <= 12; i++)
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                </select>
+                                @Html.Label("Year")
+                                <!-- Only goes up to 2030 for now but could be increased -->
+                                <select class="form-select" id="year" name="Year" fdprocessedid="us1jy">
+                                    @for (int i = 2023; i <= 2030; i++)
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <input type="submit" value="Add Hours" class="btn btn-info float-right mt-3" />
+                            }
+                                <div class="card-body">
+                                </div>
+                            </div>
+
+
+                    </div>
+                    <!-- for the user input-->
+                    <div class="flex-item ">
+                        <h1> Study Sync Study Planner :</h1>
+                        
+                    @if (Model != null)
+                    {
+                        <form action="@Url.Action("BtnDeleteNote", "Home")" method="post">
+                            <input type="hidden" name="noteName" value="@Model.NoteName">
+                            <div class="alert alert-dismissible alert-info">
+                                <strong>Reminder!</strong> @Model.NoteDate <a href="#" class="alert-link">@Model.NoteName</a>, @Model.NoteContent
+                            </div>
+                            <input type="submit" value="Delete" class="btn btn-danger" data-bs-dismiss="alert" fdprocessedid="p9xdxd" />
+                        </form>
+                        
+                    }
+                    <div>
+                        <h3>
+                            Study Sync is a comprehensive web application designed to empower users in managing their academic journeys effectively. Seamlessly plan and organize your semesters, modules, and study sessions while effortlessly tracking your study time and setting up personalized reminders.
+
+                            Key Features:
+
+                            Semester Planning: Easily map out your academic semesters, including class schedules, assignment deadlines, and important events, ensuring a structured approach to your studies.
+                            Module Management: Organize modules, courses, or subjects within each semester, facilitating a clear overview of your coursework, associated materials, and progress tracking.
+                            Time Tracking: Effortlessly monitor and log your study hours per module, allowing you to gauge and manage your study time effectively.
+                            Reminder Setup: Set custom reminders for important deadlines, exams, or study sessions, ensuring you stay on top of your academic commitments.
+                            Personalized Dashboard: Access a personalized dashboard providing a comprehensive view of your current semesters, modules, upcoming deadlines, and study progress.
+                            Study Sync aims to streamline academic planning, time management, and task organization, empowering users to optimize their study schedules and achieve academic success.
+                        </h3>
+                    </div>
+                </div>
+
+
+                
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+﻿@model PROG6212_POE_PART_3_ST10150631.Models.ModuleModel;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<style>
+    /* Center align the content */
+    .centered-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Set height for vertical centering */
+        background-image: url(/lib/imgs/StudyBackground.jpg); /* Replace 'your-background-image-url.jpg' with your image URL */
+        background-size: cover;
+        background-position: center;
+    }
+
+    .card-container {
+        width: 60%; /* Set a larger width for the card container */
+        max-width: 500px; /* Set a maximum width */
+        padding: 40px; /* Increase padding to maintain spacing */
+    }
+
+    /* Style for form inputs */
+    .form-group {
+        margin-bottom: 20px; /* Add margin between form elements */
+    }
+</style>
+<h1> Add Module: </h1>
+@using (Html.BeginForm("AddModuleClicked", "Module", FormMethod.Post))
+{
+    <div class="centered-content">
+        <div class="card-container card text-white bg-dark">
+            <h1>Add Module</h1>
+            <div class="form-group">
+                @Html.Label("Module Code")
+                @Html.TextBoxFor(model => model.ModuleCode, new { @class = "form-control", id = "InputCode" })
+            </div>
+            <div class="form-group">
+                @Html.Label("Module Name")
+                @Html.TextBoxFor(model => model.ModuleName, new { @class = "form-control", id = "InputModuleName" })
+            </div>
+            <div class="form-group">
+                @Html.Label("Module Credits")
+                @Html.TextBoxFor(model => model.Credits, new { @class = "form-control", id = "InputCredits" })
+            </div>
+            <div class="form-group">
+                @Html.Label("Module Weekly Class Hours")
+                @Html.TextBoxFor(model => model.WeeklyClassHrs, new { @class = "form-control", id = "InputWeeklyClassHrs" })
+            </div>
+            <div class="form-group">
+                @Html.Label("Semester Name")
+                <select class="form-select" id="SemesterName" name="SemesterName" fdprocessedid="us1jy">
+                    @foreach (var semesterName in Model.SemesterList)
+                    {
+                        <option value="@semesterName.SemesterName">@semesterName.SemesterName</option>
+                    }
+                 </select>
+            </div>
+            <button type="submit" class="btn btn-success">+ Add Module</button>
+        </div>
+
+    </div>
+}

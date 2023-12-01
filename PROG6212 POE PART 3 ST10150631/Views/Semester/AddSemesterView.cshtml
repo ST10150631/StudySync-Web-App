@@ -1,0 +1,72 @@
+﻿@model PROG6212_POE_PART_3_ST10150631.Models.SemesterModel;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<style>
+    /* Center align the content */
+    .centered-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Set height for vertical centering */
+        background-image:url(/lib/imgs/SemesterBg.jpg); /* Replace 'your-background-image-url.jpg' with your image URL */
+        background-size: cover;
+        background-position: center;
+    }
+
+    .card-container {
+        width: 60%; /* Set a larger width for the card container */
+        max-width: 500px; /* Set a maximum width */
+        padding: 40px; /* Increase padding to maintain spacing */
+    }
+
+    /* Style for form inputs */
+    .form-group {
+        margin-bottom: 20px; /* Add margin between form elements */
+    }
+</style>
+@using (Html.BeginForm("AddSemesterClicked", "Semester", FormMethod.Post))
+{
+    <div class="centered-content">
+        <div class="card-container card text-white bg-dark">
+            <h1>Add Semesters</h1>
+            <div class="form-group">
+                @Html.Label("Semester Name")
+                @Html.TextBoxFor(model => model.SemesterName, new { @class = "form-control", id = "InputSemesterName" })
+            </div>
+            <div class="form-group">
+                @Html.Label("Start Date")
+                @Html.Label("Day")
+                <select class="form-select" id="day" name="Day" fdprocessedid="us1jy">
+                    @for (int i = 1; i <= 31; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
+                @Html.Label("Month")
+                <select class="form-select" id="month" name="Month" fdprocessedid="us1jy">
+                    @for (int i = 1; i <= 12; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
+                @Html.Label("Year")
+                <!-- Only goes up to 2030 for now but could be increased -->
+                <select class="form-select" id="year" name="Year" fdprocessedid="us1jy">
+                    @for (int i = 2023; i <= 2030; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                @Html.Label("Number of Weeks")
+                @Html.TextBoxFor(model => model.Weeks, new { @class = "form-control", id = "InputWeeks"})
+            </div>
+                <button type="submit" class="btn btn-success">+ Add Semester</button>
+        </div>
+
+    </div>
+}

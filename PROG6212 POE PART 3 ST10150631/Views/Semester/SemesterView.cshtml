@@ -1,0 +1,85 @@
+﻿@model IEnumerable<SemesterModel>
+
+<style>
+    .btn.btn-success {
+        width: 100%; /* Make the button fill the container width */
+        height: 100%;
+        border: none; /* Remove button border */
+        margin-bottom: 5px;
+    }
+</style>
+<head>
+    <title>My Semesters: </title>
+    
+</head>
+<html>
+<body>
+    <h1>My Semesters: </h1>
+    <div class="album py-5 bg-dark">
+    <div class="container">
+            <!-- Button to Add Semester-->
+            <a type="button" class="btn btn-success" style="background-size:cover" asp-controller="Semester" asp-action="AddSemesterView">+ Add Semester</a>
+
+        <div class="row">
+
+            @if(Model == null)
+            {
+                <div class="col-md-4">
+                    <div class="card text-white bg-info mb-3" style="max-width: 20rem;">
+                        <div class="card-header">
+                            <h3>Semester Name</h3>
+                        <img class="card-img-top" src="~/lib/imgs/Library2.jpg" />
+                        <div class="card-body">
+                            <p class="card-text">StartDate:     End Date: </p>
+                                <p class="card-text">Weeks</p>
+                                <p class="card-text">Modules: </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-danger">Delete</button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }else
+            //Will load in all Semesters from a list as items
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-4">
+                        <div class="card text-white bg-info mb-3" style="max-width: 20rem;">
+                            <div class="card-header">
+                                <h3>@item.SemesterName</h3>
+                                <img class="card-img-top" src="~/lib/imgs/Library2.jpg" />
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">Start Date: @item.StartDate.ToShortDateString()</p>
+                                <p class="card-text">End Date: @item.EndDate.ToShortDateString()</p>
+                                <p class="card-text">Weeks: @item.Weeks</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <!-- Deletes the semester when pressed -->
+                                    <div class="btn-group">
+                                            <form action="Delete" method="post">
+                                                <input type="hidden" name="SemName" value="@item.SemesterName" />
+                                                <input type="submit" value="Delete" class="btn btn-danger float-right mt-3" />
+                                            </form>
+                                            @if (TempData["ErrorMessage"] != null)
+                                            {
+                                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                    @TempData["ErrorMessage"]
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                </div>
+                                            }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

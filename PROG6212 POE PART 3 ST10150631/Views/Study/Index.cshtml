@@ -1,0 +1,95 @@
+﻿@model IEnumerable<ModuleModel>
+
+<style>
+    .flex-container {
+        display: flex;
+        justify-content: space-between; /* Distributes items evenly */
+    }
+
+    .flex-item {
+        /* Styling for each column */
+        flex: 1; /* Each column takes up equal space */
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin: 0 5px; /* Margin between columns */
+    }
+    .form-group{
+        padding:10px;
+    }
+
+    .btn-primary {
+        padding: 10px;
+    }
+
+    .smaller-column {
+        flex: 0.5; /* Adjust the value to make this column smaller */
+    }
+
+</style>
+<html>
+<body>
+    <h1>Study: </h1>
+    <div class="album py-5 bg-dark">
+        <div class="container">
+                <div class="flex-container">
+                @if (Model != null)
+                {
+                    <!-- for the module items -->
+                    <div class="flex-item smaller-column">
+
+                        @foreach (var module in Model)
+                        {
+                            <div class="card text-white bg-info mb-3 border-prim" style="max-width: 25rem;">
+                                <div class="card-header">@module.ModuleCode</div>
+                                <div class="card-body">
+                                    <h4 class="card-title">@module.ModuleName</h4>
+                                    <p> Semester: @module.SemesterName</p>
+                                    <p>Weekly Self Study Hours Goal: @module.WeeklySelfHrs </p>
+                                    <p>Weekly Self Hours Completed: @module.CompletedSelfHrs</p>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="@module.CompletedSelfHrs" aria-valuemin="0.1" aria-valuemax="@module.WeeklySelfHrs" style=" width: @module.ProgressBarValue%;"></div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+
+                    </div>               
+                    <!-- for the user input-->
+                <div class="flex-item ">
+                    <h2> Add Hours Studied</h2>
+                        @using (Html.BeginForm("AddHoursStudied", "Study", FormMethod.Post))
+                        {
+                            <div class="form-group" >
+                                <p>Enter the number of hours studied: </p>
+                                <input type="text" id="hrs" name="hrs" />
+                            </div>
+                            <div class="form-group">
+                                <p>Module: </p>
+                                <select class="form-select" id="ModuleName" name="ModuleName" fdprocessedid="us1jy">
+                                    @foreach (var module in Model)
+                                    {
+                                        <option value="@module.ModuleName">@module.ModuleName</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <input type="submit" value="Add Hours" class="btn btn-primary float-right mt-3" />
+                        }
+                        <!-- Separate form for starting a new week -->
+                            <form action="/Study/StartNewWeek" method="post">
+                                <input type="submit" value="Start A New Week" class="btn btn-warning float-right mt-3" />
+                            </form>
+                </div>
+
+                
+                }
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>
+<!---->
