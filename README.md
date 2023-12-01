@@ -17,6 +17,15 @@ they should spend on a subject weekly outside of lectures.
 * Requires 1 GB of available hard disk space
 * Visual Studio C# package
 
+## How to luanch the App
+1. Unzip the folder called PROG6212 POE PART 3, MICHAEL TURNER ST10150631 and open it.
+2.	Find the “PROG6212 POE PART 3 ST10150631.sin”
+![image](https://github.com/ST10150631/StudySync-Web-App/assets/101188233/85a379e9-8e29-4cf3-8a27-15a0ca62ddb8)
+3.	Click on the file.
+4.	Press the play button at the top of the screen if this does not work first time click the little arrow next to the play button and select your desired web browser and try again.
+![image](https://github.com/ST10150631/StudySync-Web-App/assets/101188233/c91b34cc-13fb-4bec-b17b-904cb837f45b)
+5.	The app will now open.
+6.	Wait for the app to load and you’ll be able to use it!
 
 
 ## Changes and Updates:
